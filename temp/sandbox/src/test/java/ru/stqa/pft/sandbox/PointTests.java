@@ -6,19 +6,22 @@ public class PointTests {
 
   @Test
   public void testDistance() {
-    PointData P = new PointData(0, 1, 2, -2);
-    assert Point.distance(P) == 2.23606797749979;
+    Point p1 = new Point(0, 1);
+    Point p2 = new Point(2, -3);
+    assert p1.distance(p2) == 4.47213595499958;
   }
 
-   @Test
-    public void testDistance1 () {
-      PointData P = new PointData(0, 1, 3, -3);
-      assert Point.distance(P) == 3.1622776601683795;
-    }
+  @Test
+  public void testDistance1() {
+    Point p1 = new Point(2, 1);
+    Point p2 = new Point(1, -2);
+    assert p1.distance(p2) == 3.1622776601683795;
+  }
 
   @Test
-  public void testDistance2 () {
-    PointData P = new PointData(0, 1, 0, -1);
-    assert Point.distance(P) == 1.4142135623730951;
+  public void testDistance2() {
+    Point p1 = new Point(4, -7);
+    Point p2 = new Point(3, -3);
+    assert p1.distance(p2) == 4.123105625617661;
   }
 }
