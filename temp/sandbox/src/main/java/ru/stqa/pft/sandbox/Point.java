@@ -1,13 +1,15 @@
 package ru.stqa.pft.sandbox;
 
 public class Point {
-  public static void main(String[] args){
-    PointData P = new PointData(0, 1, 2, -2);
-    System.out.println("Расстояние между точками =" + distance(P));
-  }
-  public static double distance(PointData P){
-    return Math.sqrt((P.p2-P.p1)*(P.p2-P.p1)+(P.p4-P.p1)*(P.p4-P.p1));
-  }
+  public double x;
+  public double y;
 
+  public Point(double x, double y) {
+    this.x = x;
+    this.y = y;
+  }
+    public double distance(Point p) {
+
+      return Math.sqrt((this.x-p.x)*(this.x-p.x)+(this.y-p.y)*(this.y-p.y));
+    }
 }
-
