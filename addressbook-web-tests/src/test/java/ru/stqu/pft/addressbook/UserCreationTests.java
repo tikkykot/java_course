@@ -12,10 +12,6 @@ public class UserCreationTests {
   public void setUp() throws Exception {
     wd = new FirefoxDriver();
     wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-  }
-
-  @Test
-  public void testUserCreation() throws Exception {
     wd.get("http://127.0.0.1:8080/addressbook/addressbook/");
     wd.findElement(By.name("user")).clear();
     wd.findElement(By.name("user")).sendKeys("admin");
@@ -23,6 +19,10 @@ public class UserCreationTests {
     wd.findElement(By.name("pass")).clear();
     wd.findElement(By.name("pass")).sendKeys("secret");
     wd.findElement(By.xpath("//input[@value='Login']")).click();
+  }
+
+  @Test
+  public void testUserCreation() throws Exception {
     wd.findElement(By.linkText("add new")).click();
     wd.findElement(By.name("firstname")).click();
     wd.findElement(By.name("firstname")).clear();
@@ -42,15 +42,11 @@ public class UserCreationTests {
     wd.findElement(By.name("email")).sendKeys("qa@java.com");
     wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
     wd.findElement(By.linkText("home page")).click();
-    wd.findElement(By.linkText("Logout")).click();
-    wd.findElement(By.name("user")).clear();
-    wd.findElement(By.name("user")).sendKeys("admin");
-    wd.findElement(By.name("pass")).clear();
-    wd.findElement(By.name("pass")).sendKeys("secret");
   }
 
   @AfterMethod(alwaysRun = true)
   public void tearDown() throws Exception {
+    wd.findElement(By.linkText("Logout")).click();
     wd.quit();
   }
 
