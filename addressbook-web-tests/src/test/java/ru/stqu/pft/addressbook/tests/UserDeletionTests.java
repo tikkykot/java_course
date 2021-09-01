@@ -1,4 +1,4 @@
-package ru.stqu.pft.addressbook;
+package ru.stqu.pft.addressbook.tests;
 
 import org.testng.annotations.Test;
 
@@ -7,10 +7,10 @@ public class UserDeletionTests extends TestBase{
 
   @Test
   public void testUserDeletion() throws Exception {
-    selectUser();
-    deleteSelectedUser();
-    closeAlert();
-    returnToHomePage1();
+    app.selectUser();
+    app.deleteSelectedUser();
+    app.closeAlert();
+    app.returnToHomePage1();
   }
 
 }
