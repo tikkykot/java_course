@@ -2,7 +2,6 @@ package ru.stqu.pft.addressbook;
 
 import org.testng.annotations.*;
 
-
 public class GroupCreationTests extends TestBase {
 
   @Test
