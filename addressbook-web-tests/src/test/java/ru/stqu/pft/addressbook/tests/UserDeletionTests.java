@@ -7,10 +7,10 @@ public class UserDeletionTests extends TestBase{
 
   @Test
   public void testUserDeletion() throws Exception {
-    app.selectUser();
-    app.deleteSelectedUser();
+    app.getContactHelper().selectUser();
+    app.getContactHelper().deleteSelectedUser();
     app.closeAlert();
-    app.returnToHomePage1();
+    app.getContactHelper().returnToHomePage1();
   }
 
 }
