@@ -37,4 +37,12 @@ public class ContactHelper extends BaseHelper {
   public void returnToHomePage1() {
     click(By.linkText("home"));
   }
+
+  public void initUserModification() {
+    click(By.xpath("//img[@alt='Edit']"));
+  }
+
+  public void submitUserModification() {
+    click(By.xpath("//div[@id='content']/form/input[22]"));
+  }
 }
