@@ -61,7 +61,7 @@ public class ContactHelper extends BaseHelper {
 
   public void createUser(UserData user) {
     initUserCreation();
-    fillUserForm(user, false);
+    fillUserForm(user, true);
     submitUserCreation();
   }
 }

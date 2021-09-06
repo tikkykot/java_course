@@ -13,7 +13,7 @@ public class UserModificationTests extends TestBase {
     }
     app.getContactHelper().selectUser();
     app.getContactHelper().initUserModification();
-    app.getContactHelper().fillUserForm(new UserData("Dmitry", "Zagumenny", "Saint_Petersburg", "+7123456789", "qa@java.com", null, false), true);
+    app.getContactHelper().fillUserForm(new UserData("Dmitry", "Zagumenny", "Saint_Petersburg", "+7123456789", "qa@java.com", null, false), false);
     app.getContactHelper().submitUserModification();
     app.getContactHelper().returnToHomePage1();
 
