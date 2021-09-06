@@ -1,7 +1,10 @@
 package ru.stqu.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.stqu.pft.addressbook.model.UserData;
 
 public class ContactHelper extends BaseHelper {
@@ -14,12 +17,18 @@ public class ContactHelper extends BaseHelper {
     click(By.xpath("//div[@id='content']/form/input[21]"));
   }
 
-  public void fillUserForm(UserData userData) {
+  public void fillUserForm(UserData userData, boolean creation) {
     type(By.name("firstname"), userData.getFirstname());
     type(By.name("lastname"), userData.getLastname());
     type(By.name("address"), userData.getAddress());
     type(By.name("home"), userData.getPhone_home());
     type(By.name("email"), userData.getEmail());
+
+    if (creation) {
+      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroup());
+    } else {
+      Assert.assertFalse(isElementPresent(By.name("new_group")));
+    }
   }
 
   public void initUserCreation() {
@@ -44,5 +53,15 @@ public class ContactHelper extends BaseHelper {
 
   public void submitUserModification() {
     click(By.xpath("//div[@id='content']/form/input[22]"));
+  }
+
+  public boolean isThereAUser() {
+    return isElementPresent(By.name("selected[]"));
+  }
+
+  public void createUser(UserData user) {
+    initUserCreation();
+    fillUserForm(user, false);
+    submitUserCreation();
   }
 }
