@@ -11,6 +11,7 @@ public class UserModificationTests extends TestBase {
     if (! app.getContactHelper().isThereAUser()) {
       app.getContactHelper().createUser(new UserData("Dmitry", "Zagumenny", "Saint_Petersburg", "+7123456789", "qa@java.com", null, false));
     }
+    app.getContactHelper().returnToHomePage1();
     app.getContactHelper().selectUser();
     app.getContactHelper().initUserModification();
     app.getContactHelper().fillUserForm(new UserData("Dmitry", "Zagumenny", "Saint_Petersburg", "+7123456789", "qa@java.com", null, false), false);
