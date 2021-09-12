@@ -13,7 +13,7 @@ public class UserDeletionTests extends TestBase{
     if (! app.getContactHelper().isThereAUser()) {
       app.getContactHelper().createUser(new UserData("Dmitry", "Zagumenny", "Saint_Petersburg", "+7123456789", "qa@java.com", "test1", false));
     }
-    app.getContactHelper().selectUser();
+    app.getContactHelper().selectUser(before - 1);
     app.getContactHelper().deleteSelectedUser();
     app.closeAlert();
     app.getContactHelper().returnToHomePage1();
