@@ -11,7 +11,7 @@ public class UserDeletionTests extends TestBase{
 
   @Test
   public void testUserDeletion() throws Exception {
-    if (! app.getContactHelper().isThereAUser()) {
+    if (!app.getContactHelper().isThereAUser()) {
       app.getContactHelper().createUser(new UserData("Dmitry", "Zagumenny", "Saint_Petersburg", "+7123456789", "qa@java.com", "test1", false));
     }
     List<UserData> before = app.getContactHelper().getContactList();
@@ -21,6 +21,8 @@ public class UserDeletionTests extends TestBase{
     app.getContactHelper().returnToHomePage1();
     List<UserData> after = app.getContactHelper().getContactList();
     Assert.assertEquals(after.size(), before.size() - 1);
-  }
 
-}
+    before.remove(before.size() - 1);
+      Assert.assertEquals(before, after);
+    }
+  }
