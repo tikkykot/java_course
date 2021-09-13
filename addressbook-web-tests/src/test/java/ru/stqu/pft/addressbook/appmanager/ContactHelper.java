@@ -76,9 +76,9 @@ public class ContactHelper extends BaseHelper {
 
   public List<UserData> getContactList() {
     List<UserData> users = new ArrayList<UserData>();
-    List<WebElement> elements = wd.findElements(By.cssSelector("td.center"));
+    List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements) {
-      String name = element.getText();
+      List<WebElement> cells = element.findElements(By.tagName("td"));
       UserData user = new UserData("firstname", "lastname", null, null, null, null, true);
       users.add(user);
     }
