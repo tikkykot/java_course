@@ -5,6 +5,8 @@ import org.testng.annotations.*;
 import ru.stqu.pft.addressbook.model.GroupData;
 import ru.stqu.pft.addressbook.model.UserData;
 
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 
 public class UserCreationTests extends TestBase{
@@ -13,10 +15,24 @@ public class UserCreationTests extends TestBase{
   @Test
   public void testUserCreation() throws Exception {
     List<UserData> before = app.getContactHelper().getContactList();
-    app.getContactHelper().createUser(new UserData("Dmitry", "Zagumenny", "Saint_Petersburg", "+7123456789", "qa@java.com", "test1", true));
+    UserData user = new UserData("Dmitry", "Zagumenny", "Saint_Petersburg", "+7123456789", "qa@java.com", "test1", true);
+    app.getContactHelper().createUser(user);
     app.returnToHomePage();
     List<UserData> after = app.getContactHelper().getContactList();
     Assert.assertEquals(after.size(), before.size() + 1);
-  }
 
+
+    int max = 0;
+    for (UserData u : after) {
+      if (u.getId() > max) {
+        max = u.getId();
+      }
+    }
+    user.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
+    before.add(user);
+    Comparator<? super UserData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
+    before.sort(byId);
+    after.sort(byId);
+    Assert.assertEquals(before, after);
+  }
 }
