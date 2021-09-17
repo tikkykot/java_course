@@ -1,14 +1,10 @@
 package ru.stqu.pft.addressbook.tests;
 
-import org.omg.CORBA.Object;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.stqu.pft.addressbook.model.GroupData;
 import ru.stqu.pft.addressbook.model.UserData;
 
-import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class UserModificationTests extends TestBase {
@@ -21,7 +17,7 @@ public class UserModificationTests extends TestBase {
     }
     List<UserData> before = app.getContactHelper().getContactList();
     app.getContactHelper().selectUser(before.size() - 1);
-    app.getContactHelper().initUserModification();
+    app.getContactHelper().initUserModification(before.size() - 1);
     UserData user = new UserData(before.get(before.size() - 1).getId(), "Dmitry", "Zagumenny", "Saint_Petersburg", "+7123456789", "qa@java.com", null, false);
     app.getContactHelper().fillUserForm(user, false);
     app.getContactHelper().submitUserModification();

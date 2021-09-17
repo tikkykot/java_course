@@ -1,12 +1,10 @@
 package ru.stqu.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-import ru.stqu.pft.addressbook.model.GroupData;
 import ru.stqu.pft.addressbook.model.UserData;
 
 import java.util.ArrayList;
@@ -52,8 +50,8 @@ public class ContactHelper extends BaseHelper {
     click(By.linkText("home"));
   }
 
-  public void initUserModification() {
-    click(By.xpath("//img[@alt='Edit']"));
+  public void initUserModification(int index) {
+    wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
   }
 
   public void submitUserModification() {

@@ -1,12 +1,10 @@
 package ru.stqu.pft.addressbook.tests;
 
 import org.testng.Assert;
-import org.testng.annotations.*;
-import ru.stqu.pft.addressbook.model.GroupData;
+import org.testng.annotations.Test;
 import ru.stqu.pft.addressbook.model.UserData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class UserCreationTests extends TestBase{
