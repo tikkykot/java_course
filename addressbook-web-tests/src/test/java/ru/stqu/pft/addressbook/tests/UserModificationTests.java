@@ -13,7 +13,8 @@ public class UserModificationTests extends TestBase {
   @BeforeMethod
   public void ensurePreconditions() {
     if (app.contact().list().size() == 0) {
-      app.contact().create(new UserData("Dmitry", "Zagumenny", "Saint_Petersburg", "+7123456789", "qa@java.com", "test1", false));
+      app.contact().create(new UserData()
+              .withFirstname("Dmitry").withLastname("Zagumenny").withAddress("Saint_Petersburg").withPhone_home("+7123456789").withEmail("qa@java.com").withGroup("test1"));
     }
   }
 
@@ -21,7 +22,8 @@ public class UserModificationTests extends TestBase {
   public void testUserModification() {
     List<UserData> before = app.contact().list();
     int index = before.size() - 1;
-    UserData user = new UserData(before.get(index).getId(), "Dmitry", "Zagumenny", "Saint_Petersburg", "+7123456789", "qa@java.com", null, false);
+    UserData user = new UserData()
+            .withId(before.get(index).getId()).withFirstname("Dmitry").withLastname("Zagumenny").withAddress("Saint_Petersburg").withPhone_home("+7123456789").withEmail("qa@java.com").withGroup("test1");
     app.contact().modify(index, user);
     List<UserData> after = app.contact().list();
     Assert.assertEquals(after.size(), before.size());
