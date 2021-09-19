@@ -20,12 +20,6 @@ public class UserCreationTests extends TestBase{
     Assert.assertEquals(after.size(), before.size() + 1);
 
 
-    int max = 0;
-    for (UserData u : after) {
-      if (u.getId() > max) {
-        max = u.getId();
-      }
-    }
     user.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
     before.add(user);
     Comparator<? super UserData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
