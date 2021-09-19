@@ -62,17 +62,33 @@ public class ContactHelper extends BaseHelper {
     return isElementPresent(By.name("selected[]"));
   }
 
-  public void createUser(UserData user) {
+  public void create(UserData user) {
     initUserCreation();
     fillUserForm(user, true);
     submitUserCreation();
   }
+  public void modify(int index, UserData user) {
+    selectUser(index);
+    initUserModification(index);
+    fillUserForm(user, false);
+    submitUserModification();
+    returnToHomePage1();
+  }
+  public void closeAlert() {
+    wd.switchTo().alert().accept();
+  }
 
+  public void delete(int index) {
+    selectUser(index);
+    deleteSelectedUser();
+    closeAlert();
+    returnToHomePage1();
+  }
   public int getContactCount() {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<UserData> getContactList() {
+  public List<UserData> list() {
     List<UserData> users = new ArrayList<UserData>();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements) {
