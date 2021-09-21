@@ -6,9 +6,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqu.pft.addressbook.model.UserData;
+import ru.stqu.pft.addressbook.model.Users;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends BaseHelper {
 
@@ -42,17 +44,25 @@ public class ContactHelper extends BaseHelper {
     click(By.xpath("//input[@value='Delete']"));
   }
 
-  public void selectUser(int index) {
-    wd.findElements(By.name("selected[]")).get(index).click();
+  public void selectUserById(int id) {
+    wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
   }
 
   public void returnToHomePage1() {
     click(By.linkText("home"));
   }
 
-  public void initUserModification(int index) {
-    wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
-  }
+ // public void initUserModification(int index) {
+ //   wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
+ // }
+
+ // public void initUserModification(int id) {
+ //   wd.findElement(By.xpath("//edit.php?id=" + id + "']")).click();
+ // }
+
+ public void initUserModification(int id) {
+   wd.findElement(By.xpath("//img[@alt='Edit']")).click();
+}
 
   public void submitUserModification() {
     click(By.xpath("//div[@id='content']/form/input[22]"));
@@ -67,9 +77,9 @@ public class ContactHelper extends BaseHelper {
     fillUserForm(user, true);
     submitUserCreation();
   }
-  public void modify(int index, UserData user) {
-    selectUser(index);
-    initUserModification(index);
+  public void modify(UserData user) {
+    selectUserById(user.getId());
+    initUserModification(user.getId());
     fillUserForm(user, false);
     submitUserModification();
     returnToHomePage1();
@@ -78,18 +88,21 @@ public class ContactHelper extends BaseHelper {
     wd.switchTo().alert().accept();
   }
 
-  public void delete(int index) {
-    selectUser(index);
+
+  public void delete(UserData user) {
+    selectUserById(user.getId());
     deleteSelectedUser();
     closeAlert();
     returnToHomePage1();
   }
+
   public int getContactCount() {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<UserData> list() {
-    List<UserData> users = new ArrayList<UserData>();
+
+  public Users all() {
+    Users users = new Users();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements) {
       List<WebElement> cells = element.findElements(By.tagName("td"));
@@ -102,4 +115,6 @@ public class ContactHelper extends BaseHelper {
     }
     return users;
   }
+
+
 }
