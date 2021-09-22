@@ -1,18 +1,12 @@
 package ru.stqu.pft.addressbook.tests;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqu.pft.addressbook.model.UserData;
 import ru.stqu.pft.addressbook.model.Users;
 
-import java.util.Set;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.testng.Assert.assertEquals;
 
 public class UserDeletionTests extends TestBase{
 
@@ -29,8 +23,8 @@ public class UserDeletionTests extends TestBase{
     Users before = app.contact().all();
     UserData deletedUser = before.iterator().next();
     app.contact().delete(deletedUser);
+    assertThat(app.contact().count(), equalTo(before.size() - 1));
     Users after = app.contact().all();
-    assertEquals(after.size(), before.size() - 1);
     assertThat(after, equalTo(before.without(deletedUser)));
     }
 }

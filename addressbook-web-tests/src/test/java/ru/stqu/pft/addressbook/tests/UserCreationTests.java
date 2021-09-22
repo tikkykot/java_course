@@ -17,8 +17,8 @@ public class UserCreationTests extends TestBase{
             .withFirstname("Dmitry").withLastname("Zagumenny").withAddress("Saint_Petersburg").withPhone_home("+7123456789").withEmail("qa@java.com").withGroup("test1");
     app.contact().create(user);
     app.returnToHomePage();
+    assertThat(app.contact().count(), equalTo(before.size() + 1));
     Users after = app.contact().all();
-    assertThat(after.size(), equalTo(before.size() + 1));
     assertThat(after, equalTo(
             before.withAdded(user.withId(after.stream().mapToInt((u) -> u.getId()).max().getAsInt()))));
   }
