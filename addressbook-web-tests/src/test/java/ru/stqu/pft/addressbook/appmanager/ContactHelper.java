@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import ru.stqu.pft.addressbook.model.Groups;
 import ru.stqu.pft.addressbook.model.UserData;
 import ru.stqu.pft.addressbook.model.Users;
 
@@ -76,12 +77,14 @@ public class ContactHelper extends BaseHelper {
     initUserCreation();
     fillUserForm(user, true);
     submitUserCreation();
+    userCache = null;
   }
   public void modify(UserData user) {
     selectUserById(user.getId());
     initUserModification(user.getId());
     fillUserForm(user, false);
     submitUserModification();
+    userCache = null;
     returnToHomePage1();
   }
   public void closeAlert() {
@@ -93,6 +96,7 @@ public class ContactHelper extends BaseHelper {
     selectUserById(user.getId());
     deleteSelectedUser();
     closeAlert();
+    userCache = null;
     returnToHomePage1();
   }
 
@@ -100,9 +104,13 @@ public class ContactHelper extends BaseHelper {
     return wd.findElements(By.name("selected[]")).size();
   }
 
+  private Users userCache = null;
 
   public Users all() {
-    Users users = new Users();
+    if (userCache != null) {
+      return new Users(userCache);
+    }
+    userCache = new Users();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements) {
       List<WebElement> cells = element.findElements(By.tagName("td"));
@@ -111,9 +119,9 @@ public class ContactHelper extends BaseHelper {
       String lastname = cells.get(lastNameNum).getText();
       String firstname = cells.get(firstNameNum).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("Value"));
-      users.add(new UserData().withId(id).withFirstname(firstname).withLastname(lastname));
+      userCache.add(new UserData().withId(id).withFirstname(firstname).withLastname(lastname));
     }
-    return users;
+    return new Users(userCache);
   }
 
 
