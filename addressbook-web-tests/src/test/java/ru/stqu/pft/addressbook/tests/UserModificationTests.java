@@ -20,6 +20,7 @@ public class UserModificationTests extends TestBase {
 
   @Test
   public void testUserModification() {
+    app.returnToHomePage();
     Users before = app.contact().all();
     UserData modifiedUser = before.iterator().next();
     UserData user = new UserData()

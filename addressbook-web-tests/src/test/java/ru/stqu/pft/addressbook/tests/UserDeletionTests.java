@@ -20,6 +20,7 @@ public class UserDeletionTests extends TestBase{
 
   @Test
   public void testUserDeletion() throws Exception {
+    app.returnToHomePage();
     Users before = app.contact().all();
     UserData deletedUser = before.iterator().next();
     app.contact().delete(deletedUser);

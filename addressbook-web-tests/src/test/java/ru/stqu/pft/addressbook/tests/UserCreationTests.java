@@ -12,6 +12,7 @@ public class UserCreationTests extends TestBase{
 
   @Test
   public void testUserCreation() throws Exception {
+    app.returnToHomePage();
     Users before = app.contact().all();
     UserData user = new UserData()
             .withFirstname("Dmitry").withLastname("Zagumenny").withAddress("Saint_Petersburg").withPhone_home("+7123456789").withEmail("qa@java.com").withGroup("test1");
