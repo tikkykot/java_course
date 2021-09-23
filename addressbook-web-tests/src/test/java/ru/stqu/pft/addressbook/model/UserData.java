@@ -9,9 +9,33 @@ public class UserData {
   private String address;
   private String phone_home;
   private String email;
+  private String email2;
+  private String email3;
   private String group;
   private String mobilePhone;
   private String workPhone;
+
+  public String getAllEmails() {
+    return AllEmails;
+  }
+
+  public UserData withAllEmails(String allEmails) {
+    AllEmails = allEmails;
+    return this;
+  }
+
+  private String AllEmails;
+
+  public String getAllPhones() {
+    return allPhones;
+  }
+
+  public UserData withAllPhones(String allPhones) {
+    this.allPhones = allPhones;
+    return this;
+  }
+
+  private String allPhones;
 
   public UserData withId(int id) {
     this.id = id;
@@ -51,15 +75,19 @@ public class UserData {
     return this;
   }
 
-  public UserData withGroup(String group) {
-    this.group = group;
+  public UserData withEmail2(String email2) {
+    this.email2 = email2;
     return this;
   }
 
-  public int getId() {
-    return id;
-
+  public UserData withEmail3(String email3) {
+    this.email3 = email3;
+    return this;
   }
+
+  public UserData withGroup(String group) {this.group = group;return this;}
+
+  public int getId() {return id;}
 
 
   public String getFirstname() {
@@ -74,13 +102,17 @@ public class UserData {
     return address;
   }
 
-  public String getPhone_home() {
-    return phone_home;
-  }
+  public String getPhone_home()  {return phone_home;}
 
-  public String getEmail() {
-    return email;
-  }
+  public String getMobilePhone()  {return mobilePhone;}
+
+  public String getWorkPhone()  {return workPhone;}
+
+  public String getEmail() {return email;}
+
+  public String getEmail2() {return email2;}
+
+  public String getEmail3() {return email3;}
 
   public String getGroup() {
     return group;
@@ -107,4 +139,6 @@ public class UserData {
   public int hashCode() {
     return Objects.hash(id, firstname, lastname);
   }
+
+
 }
