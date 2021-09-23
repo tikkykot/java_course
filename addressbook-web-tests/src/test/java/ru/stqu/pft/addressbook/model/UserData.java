@@ -10,6 +10,8 @@ public class UserData {
   private String phone_home;
   private String email;
   private String group;
+  private String mobilePhone;
+  private String workPhone;
 
   public UserData withId(int id) {
     this.id = id;
@@ -32,6 +34,15 @@ public class UserData {
 
   public UserData withPhone_home(String phone_home) {
     this.phone_home = phone_home;
+    return this;
+  }
+
+  public UserData withMobilePhone(String mobilePhone) {
+    this.mobilePhone = mobilePhone;
+    return this;
+  }
+  public UserData withWorkPhone(String workPhone) {
+    this.workPhone = workPhone;
     return this;
   }
 

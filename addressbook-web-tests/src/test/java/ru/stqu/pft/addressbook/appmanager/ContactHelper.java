@@ -5,13 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-import ru.stqu.pft.addressbook.model.Groups;
 import ru.stqu.pft.addressbook.model.UserData;
 import ru.stqu.pft.addressbook.model.Users;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper extends BaseHelper {
 
@@ -61,8 +58,8 @@ public class ContactHelper extends BaseHelper {
  //   wd.findElement(By.xpath("//edit.php?id=" + id + "']")).click();
  // }
 
- public void initUserModification(int id) {
-   wd.findElement(By.xpath("//img[@alt='Edit']")).click();
+ public void initUserModificationById(int id) {
+   wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
 }
 
   public void submitUserModification() {
@@ -81,7 +78,7 @@ public class ContactHelper extends BaseHelper {
   }
   public void modify(UserData user) {
     selectUserById(user.getId());
-    initUserModification(user.getId());
+    initUserModificationById(user.getId());
     fillUserForm(user, false);
     submitUserModification();
     userCache = null;
@@ -125,4 +122,14 @@ public class ContactHelper extends BaseHelper {
   }
 
 
+  public UserData infoFromEditionForm(UserData user) {
+    initUserModificationById(user.getId());
+    String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+    String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+    String home = wd.findElement(By.name("home")).getAttribute("value");
+    String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+    String work = wd.findElement(By.name("work")).getAttribute("value");
+    wd.navigate().back();
+    return new UserData().withId(user.getId()).withFirstname(firstname).withLastname(lastname).withPhone_home(home).withMobilePhone(mobile).withWorkPhone(work);
+  }
 }
