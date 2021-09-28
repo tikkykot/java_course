@@ -1,6 +1,8 @@
 package ru.stqu.pft.addressbook.generators;
 
-import ru.stqu.pft.addressbook.model.GroupData;
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.Parameter;
+import com.beust.jcommander.ParameterException;
 import ru.stqu.pft.addressbook.model.UserData;
 
 import java.io.File;
@@ -12,15 +14,31 @@ import java.util.List;
 
 public class UserDataGenerator {
 
-  public static void main(String[] args) throws IOException {
-    int count = Integer.parseInt(args[0]);
-    File file = new File(args[1]);
+  @Parameter(names = "-c", description = "User count")
+  public int count;
 
-    List<UserData> users = generateUsers(count);
-    save(users, file);
+  @Parameter (names = "-f", description = "Target files")
+  public String file;
+
+  public static void main(String[] args) throws IOException {
+    UserDataGenerator generator = new UserDataGenerator();
+    JCommander jCommander = new JCommander(generator);
+    try {
+      jCommander.parse(args);
+    }
+    catch (ParameterException ex) {
+      jCommander.usage();
+      return;
+    }
+    generator.run();
   }
 
-  private static void save(List<UserData> users, File file) throws IOException {
+  private void run() throws IOException {
+    List<UserData> users = generateUsers(count);
+    save(users, new File(file));
+  }
+
+  private void save(List<UserData> users, File file) throws IOException {
     Writer writer = new FileWriter(file);
     for (UserData user : users) {
       writer.write(String.format("%s;%s;%s;%s;%s;%s\n", user.getFirstname(), user.getLastname(), user.getAddress(), user.getPhone_home(), user.getEmail(), user.getGroup()));
@@ -28,7 +46,7 @@ public class UserDataGenerator {
     writer.close();
   }
 
-  private static List<UserData> generateUsers(int count) {
+  private List<UserData> generateUsers(int count) {
     List<UserData> users = new ArrayList<UserData>();
     for (int i = 0; i < count; i++) {
       users.add(new UserData().withFirstname(String.format("Dmitry %s", i)).withLastname(String.format("Zagumenny %s", i))
