@@ -1,0 +1,26 @@
+<list>
+  <user>
+    <firstname>Dmitry 0</firstname>
+    <lastname>Zagumenny 0</lastname>
+    <address>Saint-Petersburg 0</address>
+    <phone__home>+7123456 0</phone__home>
+    <email>qa@java 0.com</email>
+    <group>test 0</group>
+  </user>
+  <user>
+    <firstname>Dmitry 1</firstname>
+    <lastname>Zagumenny 1</lastname>
+    <address>Saint-Petersburg 1</address>
+    <phone__home>+7123456 1</phone__home>
+    <email>qa@java 1.com</email>
+    <group>test 1</group>
+  </user>
+  <user>
+    <firstname>Dmitry 2</firstname>
+    <lastname>Zagumenny 2</lastname>
+    <address>Saint-Petersburg 2</address>
+    <phone__home>+7123456 2</phone__home>
+    <email>qa@java 2.com</email>
+    <group>test 2</group>
+  </user>
+</list>

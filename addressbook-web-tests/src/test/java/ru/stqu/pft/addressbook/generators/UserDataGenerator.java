@@ -3,6 +3,8 @@ package ru.stqu.pft.addressbook.generators;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import com.thoughtworks.xstream.XStream;
+import ru.stqu.pft.addressbook.model.GroupData;
 import ru.stqu.pft.addressbook.model.UserData;
 
 import java.io.File;
@@ -20,6 +22,9 @@ public class UserDataGenerator {
   @Parameter (names = "-f", description = "Target files")
   public String file;
 
+  @Parameter (names = "-d", description = "Data format")
+  public String format;
+
   public static void main(String[] args) throws IOException {
     UserDataGenerator generator = new UserDataGenerator();
     JCommander jCommander = new JCommander(generator);
@@ -35,10 +40,26 @@ public class UserDataGenerator {
 
   private void run() throws IOException {
     List<UserData> users = generateUsers(count);
-    save(users, new File(file));
+    if (format.equals("csv")) {
+      saveAsCsv(users, new File(file));
+    } else if (format.equals("xml")) {
+      saveAsXml(users, new File(file));
+    } else {
+      System.out.println("Unrecognized format" + format);
+    }
   }
 
-  private void save(List<UserData> users, File file) throws IOException {
+  private void saveAsXml(List<UserData> users, File file) throws IOException {
+    XStream xstream = new XStream();
+    xstream.processAnnotations(UserData.class);
+    xstream.alias("user", UserData.class);
+    String xml = xstream.toXML(users);
+    Writer writer = new FileWriter(file);
+    writer.write(xml);
+    writer.close();
+  }
+
+  private void saveAsCsv(List<UserData> users, File file) throws IOException {
     Writer writer = new FileWriter(file);
     for (UserData user : users) {
       writer.write(String.format("%s;%s;%s;%s;%s;%s\n", user.getFirstname(), user.getLastname(), user.getAddress(), user.getPhone_home(), user.getEmail(), user.getGroup()));
