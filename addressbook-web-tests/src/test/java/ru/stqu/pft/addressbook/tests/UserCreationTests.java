@@ -32,6 +32,7 @@ public class UserCreationTests extends TestBase{
       line = reader.readLine();
     }
     XStream xstream = new XStream();
+    xstream.alias("user", UserData.class);
     xstream.allowTypes(new Class[]{ UserData.class });
     xstream.processAnnotations(UserData.class);
     List<UserData> users = (List<UserData>) xstream.fromXML(xml);
