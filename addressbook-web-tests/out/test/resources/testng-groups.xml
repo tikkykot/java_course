@@ -8,12 +8,4 @@
             <class name="ru.stqu.pft.addressbook.tests.GroupDeletionTests" />
         </classes>
     </test>
-
-    <test name="Users">
-        <classes>
-            <class name="ru.stqu.pft.addressbook.tests.UserCreationTests"/>
-            <class name="ru.stqu.pft.addressbook.tests.UserModificationTests"/>
-            <class name="ru.stqu.pft.addressbook.tests.UserDeletionTests"/>
-        </classes>
-    </test>
 </suite>
