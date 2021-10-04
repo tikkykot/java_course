@@ -3,9 +3,14 @@ package ru.stqu.pft.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.File;
 import java.util.Objects;
 
+@Table(name = "addressbook")
 public class UserData {
   @XStreamOmitField
   private int id = Integer.MAX_VALUE;
