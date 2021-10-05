@@ -54,7 +54,15 @@ public class UserData {
   @Transient
   private String photo;
 
-  public File getPhoto() { return new File(photo); }
+  // public File getPhoto() { return new File(photo); }
+
+  public File getPhoto() {
+    if (photo != null) {
+      return new File(photo);
+    } else {
+      return null;
+    }
+  }
 
   public UserData withPhoto(File photo) {
     this.photo = photo.getPath();

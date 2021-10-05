@@ -5,11 +5,13 @@ import com.thoughtworks.xstream.XStream;
 import org.openqa.selenium.json.TypeToken;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import ru.stqu.pft.addressbook.model.GroupData;
 import ru.stqu.pft.addressbook.model.UserData;
 import ru.stqu.pft.addressbook.model.Users;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
