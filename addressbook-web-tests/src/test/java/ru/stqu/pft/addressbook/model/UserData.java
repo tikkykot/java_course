@@ -2,45 +2,61 @@ package ru.stqu.pft.addressbook.model;
 
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
+@Entity
 @Table(name = "addressbook")
 public class UserData {
   @XStreamOmitField
+  @Id
+  @Column (name = "id")
   private int id = Integer.MAX_VALUE;
   @Expose
+  @Column (name = "firstname")
   private String firstname;
   @Expose
+  @Column (name = "lastname")
   private String lastname;
   @Expose
+  @Type(type = "text")
   private String address;
   @Expose
+  @Column (name = "home")
+  @Type(type = "text")
   private String phone_home;
   @Expose
-  private String email;
-  private String email2;
-  private String email3;
-  @Expose
+  @Transient
   private String group;
+  @Column (name = "mobile")
+  @Type(type = "text")
   private String mobilePhone;
+  @Column (name = "work")
+  @Type(type = "text")
   private String workPhone;
+  @Transient
+  private String allPhones;
+  @Expose
+  @Type(type = "text")
+  private String email;
+  @Type(type = "text")
+  private String email2;
+  @Type(type = "text")
+  private String email3;
+  @Transient
+  private String AllEmails;
+  @Column (name = "photo")
+  @Type(type = "text")
+  private String photo;
 
-  public File getPhoto() {
-    return photo;
-  }
+  public File getPhoto() {return new File(photo);}
 
-  public UserData withPhoto(File photo) {
-    this.photo = photo;
+  public UserData withPhoto(File photo) {this.photo = photo.getPath();
     return this;
   }
-
-  private File photo;
 
   public String getAllEmails() {
     return AllEmails;
@@ -51,7 +67,6 @@ public class UserData {
     return this;
   }
 
-  private String AllEmails;
 
   public String getAllPhones() {
     return allPhones;
@@ -62,7 +77,6 @@ public class UserData {
     return this;
   }
 
-  private String allPhones;
 
   public UserData withId(int id) {
     this.id = id;

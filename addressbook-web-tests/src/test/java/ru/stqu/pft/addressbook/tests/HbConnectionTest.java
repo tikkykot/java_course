@@ -9,6 +9,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqu.pft.addressbook.model.GroupData;
+import ru.stqu.pft.addressbook.model.UserData;
 
 import java.util.List;
 
@@ -34,13 +35,26 @@ public class HbConnectionTest {
   }
 
   @Test
-  public void testHbConnection() {
+  public void testHbConnectionGroups() {
     final Session session = sessionFactory.openSession();
 
     session.beginTransaction();
     List <GroupData> result = session.createQuery("from GroupData").list();
     for (GroupData group : result) {
       System.out.println(group);
+    }
+    session.getTransaction().commit();
+    session.close();
+  }
+
+  @Test
+  public void testHbConnectionUsers() {
+    final Session session = sessionFactory.openSession();
+
+    session.beginTransaction();
+    List <UserData> result = session.createQuery("from UserData where deprecated = '0000-00-00'").list();
+    for (UserData user : result) {
+      System.out.println(user);
     }
     session.getTransaction().commit();
     session.close();
