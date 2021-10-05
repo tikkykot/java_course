@@ -184,11 +184,12 @@ public class UserData {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     UserData userData = (UserData) o;
-    return id == userData.id && Objects.equals(firstname, userData.firstname) && Objects.equals(lastname, userData.lastname) && Objects.equals(address, userData.address) && Objects.equals(phone_home, userData.phone_home) && Objects.equals(group, userData.group) && Objects.equals(mobilePhone, userData.mobilePhone) && Objects.equals(workPhone, userData.workPhone) && Objects.equals(email, userData.email) && Objects.equals(email2, userData.email2) && Objects.equals(email3, userData.email3);
+    return id == userData.id && Objects.equals(firstname, userData.firstname) && Objects.equals(lastname, userData.lastname)
+            && Objects.equals(address, userData.address) && Objects.equals(phone_home, userData.phone_home) && Objects.equals(email, userData.email);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, firstname, lastname, address, phone_home, group, mobilePhone, workPhone, email, email2, email3);
+    return Objects.hash(id, firstname, lastname, address, phone_home);
   }
 }
