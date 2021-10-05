@@ -36,7 +36,7 @@ public class HbConnectionTest {
 
   @Test
   public void testHbConnectionGroups() {
-    final Session session = sessionFactory.openSession();
+    Session session = sessionFactory.openSession();
 
     session.beginTransaction();
     List <GroupData> result = session.createQuery("from GroupData").list();
@@ -49,7 +49,7 @@ public class HbConnectionTest {
 
   @Test
   public void testHbConnectionUsers() {
-    final Session session = sessionFactory.openSession();
+    Session session = sessionFactory.openSession();
 
     session.beginTransaction();
     List <UserData> result = session.createQuery("from UserData where deprecated = '0000-00-00'").list();

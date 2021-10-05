@@ -60,11 +60,11 @@ public class UserCreationTests extends TestBase{
   @Test (dataProvider = "validUsersFromJson")
   public void testUserCreation(UserData user) throws Exception {
     app.returnToHomePage();
-    Users before = app.contact().all();
+    Users before = app.db().users();
     app.contact().create(user);
     app.returnToHomePage();
     assertThat(app.contact().count(), equalTo(before.size() + 1));
-    Users after = app.contact().all();
+    Users after = app.db().users();
     assertThat(after, equalTo(
             before.withAdded(user.withId(after.stream().mapToInt((u) -> u.getId()).max().getAsInt()))));
   }
