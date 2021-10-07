@@ -73,7 +73,7 @@ public class UserDataGenerator {
   private void saveAsCsv(List<UserData> users, File file) throws IOException {
     try (Writer writer = new FileWriter(file)) {
       for (UserData user : users) {
-        writer.write(String.format("%s;%s;%s;%s;%s;%s\n", user.getFirstname(), user.getLastname(), user.getAddress(), user.getPhone_home(), user.getEmail(), user.getGroup()));
+        writer.write(String.format("%s;%s;%s;%s;%s;%s\n", user.getFirstname(), user.getLastname(), user.getAddress(), user.getPhone_home(), user.getEmail(), user.getGroups()));
       }
     }
   }
@@ -83,7 +83,7 @@ public class UserDataGenerator {
     for (int i = 0; i < count; i++) {
       users.add(new UserData().withFirstname(String.format("Dmitry %s", i)).withLastname(String.format("Zagumenny %s", i))
               .withAddress(String.format("Saint-Petersburg %s", i)).withPhone_home(String.format("+7123456 %s", i))
-              .withEmail(String.format("qa@java %s" + ".com", i)).withGroup(String.format("test %s", i)));
+              .withEmail(String.format("qa@java %s" + ".com", i)));//.withGroup(String.format("test %s", i)));
     }
     return users;
   }

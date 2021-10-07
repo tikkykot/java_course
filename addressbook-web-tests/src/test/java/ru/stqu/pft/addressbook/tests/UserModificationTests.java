@@ -14,7 +14,7 @@ public class UserModificationTests extends TestBase {
   public void ensurePreconditions() {
     if (app.db().users().size() == 0) {
       app.contact().create(new UserData()
-              .withFirstname("Dmitry").withLastname("Zagumenny").withAddress("Saint_Petersburg").withPhone_home("+7123456789").withEmail("qa@java.com").withGroup("test1"));
+              .withFirstname("Dmitry").withLastname("Zagumenny").withAddress("Saint_Petersburg").withPhone_home("+7123456789").withEmail("qa@java.com"));//.withGroup("test1"));
     }
   }
 
@@ -24,7 +24,7 @@ public class UserModificationTests extends TestBase {
     Users before = app.db().users();
     UserData modifiedUser = before.iterator().next();
     UserData user = new UserData()
-            .withId(modifiedUser.getId()).withFirstname("Dmitry").withLastname("Zagumenny").withAddress("Saint_Petersburg").withPhone_home("+7123456789").withEmail("qa@java.com").withGroup("test1");
+            .withId(modifiedUser.getId()).withFirstname("Dmitry").withLastname("Zagumenny").withAddress("Saint_Petersburg").withPhone_home("+7123456789").withEmail("qa@java.com");//.withGroup("test1");
     app.contact().modify(user);
     assertThat(app.contact().count(), equalTo(before.size()));
     Users after = app.db().users();

@@ -6,7 +6,9 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "addressbook")
@@ -29,8 +31,6 @@ public class UserData {
   @Type(type = "text")
   private String phone_home;
   @Expose
-  @Transient
-  private String group;
   @Column (name = "mobile")
   @Type(type = "text")
   private String mobilePhone;
@@ -48,11 +48,20 @@ public class UserData {
   private String email3;
   @Transient
   private String AllEmails;
-
   @Column (name = "photo")
   @Type(type = "text")
   @Transient
   private String photo;
+
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "address_in_groups",
+          joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+  private Set<GroupData> groups = new HashSet<GroupData>();
+
+  public Groups getGroups() {
+    return new Groups(groups);
+  }
+
 
   // public File getPhoto() { return new File(photo); }
 
@@ -137,7 +146,6 @@ public class UserData {
     return this;
   }
 
-  public UserData withGroup(String group) {this.group = group;return this;}
 
   public int getId() {return id;}
 
@@ -166,9 +174,7 @@ public class UserData {
 
   public String getEmail3() {return email3;}
 
-  public String getGroup() {
-    return group;
-  }
+
 
   @Override
   public String toString() {
@@ -177,6 +183,11 @@ public class UserData {
             ", firstname='" + firstname + '\'' +
             ", lastname='" + lastname + '\'' +
             '}';
+  }
+
+  public UserData inGroup(GroupData group) {
+    groups.add(group);
+    return this;
   }
 
   @Override

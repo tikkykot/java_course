@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import ru.stqu.pft.addressbook.model.GroupData;
 import ru.stqu.pft.addressbook.model.UserData;
 import ru.stqu.pft.addressbook.model.Users;
 
@@ -29,7 +30,10 @@ public class ContactHelper extends BaseHelper {
     attach(By.name("photo"), userData.getPhoto());
 
     if (creation) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroup());
+      if (userData.getGroups().size() > 0) {
+        Assert.assertTrue(userData.getGroups().size() == 1);
+        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroups().iterator().next().getName());
+      }
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
@@ -139,5 +143,30 @@ public class ContactHelper extends BaseHelper {
     wd.navigate().back();
     return new UserData().withId(user.getId()).withFirstname(firstname).withLastname(lastname).withPhone_home(home).withMobilePhone(mobile).withWorkPhone(work).
             withAddress(address).withEmail(email).withEmail2(email2).withEmail3(email3);
+  }
+
+  public void selectGroupByname(String name) {
+    new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(name);
+
+  }
+
+  public void addToGroup(UserData contact, GroupData group) {
+    returnToHomePage1();
+    selectGroupByname(group.getName());
+    selectUserById(contact.getId());
+    click(By.name("add"));
+  }
+
+  public void removeFromGroup(UserData user, GroupData groupContact) {
+    groupSearch(groupContact.getName());
+    selectUserById(user.getId());
+    removeGroup();
+  }
+
+  public void removeGroup() {
+    click(By.name("remove"));
+  }
+  public void groupSearch(String nameGroup) {
+    new Select(wd.findElement(By.name("group"))).selectByVisibleText(nameGroup);
   }
 }

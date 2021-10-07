@@ -38,4 +38,25 @@ public class Users extends ForwardingSet<UserData> {
     users.remove(user);
     return users;
   }
+
+  public UserData getInfoOnUser(UserData contact) {
+    UserData desiredUser = null;
+    for(UserData contactData : delegate){
+      if(contactData.getId() == contact.getId()){
+        desiredUser = contactData;
+        break;
+      }
+    }
+    return desiredUser;
+  }
+  public static UserData getUserWithGroup(Users users) {
+    UserData contactWithGroup = null;
+    for (UserData con : users ){
+      if(con.getGroups().size() > 0){
+        contactWithGroup = con;
+      }
+    }
+    return contactWithGroup;
+  }
+
 }
