@@ -61,7 +61,7 @@ public class AddUserToGroup extends TestBase {
     }
     if (allGroups.isEmpty()) {
       app.group().groupPage();
-      groupToAdd = new GroupData().withName("test 1").withHeader("test 2").withFooter("test 3");
+      groupToAdd = new GroupData().withName("test_new").withHeader("test 2").withFooter("test 3");
       app.group().create(groupToAdd);
     } else {
       groupToAdd = allGroups.iterator().next();

@@ -24,7 +24,9 @@ public class RemoveUserFromGroup extends TestBase {
       }
     }
     helper.addUserToGroupTest();
-  }
+    }
+
+
   @Test
   public void removeUserFromGroupTest(){
     app.returnToHomePage();
