@@ -7,7 +7,7 @@ import ru.stqa.mantis.pft.tests.TestBase;
 import static jdk.nashorn.internal.objects.NativeJava.type;
 
 public class RegistrationHelper extends HelperBase {
-  private WebDriver wd;
+  //private WebDriver wd;
 
   public RegistrationHelper (ApplicationManager app) {
     super(app);
