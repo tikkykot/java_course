@@ -32,7 +32,6 @@ public class ChangePasswordTests extends TestBase {
     app.registration().finish(confimationLink, newPassword);
     assertTrue(app.newSession().login(user.getUsername(), newPassword));
 
-
   }
 
   private UserData anyUser(List<UserData> allUsers) {

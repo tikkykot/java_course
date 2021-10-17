@@ -54,13 +54,4 @@ public class RegistrationHelper extends HelperBase {
     click(By.xpath("//form[@id='manage-user-reset-form']/fieldset/span/input"));
   }
 
-  private UserData anyUser(List<UserData> allUsers) {
-    List<UserData> copy = new ArrayList<>(allUsers);
-    for (UserData user : copy){
-      if(user.getUsername().equals("administrator")){
-        allUsers.remove(user);
-      }
-    }
-    return allUsers.get((int)Math.random() * allUsers.size());
-  }
 }
