@@ -3,7 +3,7 @@ package ru.stqa.mantis.pft.model;
 public class Issue {
 
   private int id;
-  private String suumary;
+  private String summary;
   private String description;
   private Project project;
 
@@ -17,11 +17,11 @@ public class Issue {
   }
 
   public String getSummary() {
-    return suumary;
+    return summary;
   }
 
-  public Issue withSummary(String suumary) {
-    this.suumary = suumary;
+  public Issue withSummary(String summary) {
+    this.summary = summary;
     return this;
   }
 
