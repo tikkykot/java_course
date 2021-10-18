@@ -16,6 +16,7 @@ dependencies {
     implementation 'ch.qos.logback:logback-classic:1.2.6'
     implementation 'com.beust:jcommander:1.48'
     implementation 'org.hibernate:hibernate-core:5.3.23.Final'
+    implementation 'biz.futureware.mantis:mantis-axis-soap-client:1.2.19'
 }
 
 test {
