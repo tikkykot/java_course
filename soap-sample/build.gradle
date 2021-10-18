@@ -28,3 +28,7 @@ wsdl2java {
                           ['src/main/resources/ipservice.wsdl']
     ]
 }
+
+test {
+    useTestNG()
+}
