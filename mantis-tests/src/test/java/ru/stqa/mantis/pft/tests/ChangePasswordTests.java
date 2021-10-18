@@ -16,7 +16,7 @@ import static org.testng.Assert.assertTrue;
 
 public class ChangePasswordTests extends TestBase {
 
-  //@BeforeMethod
+  @BeforeMethod
   public void startMailServer() {
     app.mail().start();
   }
@@ -37,7 +37,7 @@ public class ChangePasswordTests extends TestBase {
   private UserData anyUser(List<UserData> allUsers) {
     List<UserData> copy = new ArrayList<>(allUsers);
     for (UserData user : copy){
-      if(user.getUsername().equals("administrator")){
+      if(user.getUsername().equals("administrator")) {
         allUsers.remove(user);
       }
     }
@@ -45,7 +45,7 @@ public class ChangePasswordTests extends TestBase {
   }
 
 
-  //@AfterMethod(alwaysRun = true)
+  @AfterMethod(alwaysRun = true)
   public void stopMailServer() {
     app.mail().stop();
   }

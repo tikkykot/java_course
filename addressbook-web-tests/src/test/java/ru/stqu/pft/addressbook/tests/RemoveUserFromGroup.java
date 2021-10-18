@@ -13,19 +13,22 @@ import static org.hamcrest.MatcherAssert.*;
 public class RemoveUserFromGroup extends TestBase {
 
   @BeforeMethod
-  public void ensurePreconditions() {
-    AddUserToGroup  helper = new AddUserToGroup();
-    helper.ensurePreconditions();
-    Users allUsers = app.db().users();
-    boolean isAllUsers = allUsers.stream().allMatch(contactData -> contactData.getGroups().size() > 0);
-    for (UserData contact : allUsers){
-      if(contact.getGroups().size() > 0){
-        return;
-      }
-    }
-    helper.addUserToGroupTest();
-    }
-
+  //public void ensurePreconditions() {
+  // AddUserToGroup  helper = new AddUserToGroup();
+  //  helper.ensurePreconditions();
+  //  Users allUsers = app.db().users();
+  //  boolean isAllUsers = allUsers.stream().allMatch(contactData -> contactData.getGroups().size() > 0);
+  //  for (UserData contact : allUsers){
+  //    if(contact.getGroups().size() > 0){
+  //      return;
+  //    }
+  //  }
+  //  helper.addUserToGroupTest();
+  //  }
+public void ensurePreconditions() {
+    UserData contact = app.db().users().iterator().next();
+    GroupData groupToAdd = new AddUserToGroup().prepareGroupsBeforeOperation(contact);
+    app.contact().addToGroup(contact, groupToAdd);}
 
   @Test
   public void removeUserFromGroupTest(){
