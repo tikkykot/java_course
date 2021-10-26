@@ -169,4 +169,6 @@ public class ContactHelper extends BaseHelper {
   public void groupSearch(String nameGroup) {
     new Select(wd.findElement(By.name("group"))).selectByVisibleText(nameGroup);
   }
+
+
 }

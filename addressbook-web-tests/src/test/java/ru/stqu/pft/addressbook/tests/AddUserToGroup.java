@@ -29,8 +29,8 @@ public class AddUserToGroup extends TestBase {
   void addUserToGroupTest() {
     UserData contact = app.db().users().iterator().next();
     GroupData groupToAdd = prepareGroupsBeforeOperation(contact);
-    Groups groupsAfterOperation = getGroupsBeforeOperation(contact);
     app.contact().addToGroup(contact, groupToAdd);
+    Groups groupsAfterOperation = getGroupsAfterOperation(contact);
     assertThat(groupsAfterOperation.size(), equalTo(contact.getGroups().size() + 1));
     int maxIdFromGroupsAfterOperation = groupsAfterOperation.stream()
             .mapToInt(g -> g.getId())
@@ -41,7 +41,7 @@ public class AddUserToGroup extends TestBase {
                     .withId(maxIdFromGroupsAfterOperation))));
   }
 
-  private Groups getGroupsBeforeOperation(UserData contactBeforeOperation) {
+  private Groups getGroupsAfterOperation(UserData contactBeforeOperation) {
     UserData contactAfterOperation = app.db().users().getInfoOnUser(contactBeforeOperation);
     return contactAfterOperation.getGroups();
   }
