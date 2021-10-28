@@ -43,4 +43,5 @@ public void ensurePreconditions() {
     assertThat(groupsAfter, equalTo(groupsBefore.without(deletedGroup)));
 
   }
+
 }

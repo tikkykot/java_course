@@ -7,6 +7,10 @@ import ru.stqu.pft.addressbook.model.UserData;
 
 import ru.stqu.pft.addressbook.model.GroupData;
 import ru.stqu.pft.addressbook.model.Groups;
+import ru.stqu.pft.addressbook.model.Users;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -25,10 +29,20 @@ public class AddUserToGroup extends TestBase {
     }
   }
 
+  //@Test
+  //void addUserToGroupTest() {
+   // UserData contact = app.db().users().iterator().next();
+   // GroupData groupToAdd = prepareGroupsBeforeOperation(contact);
+
   @Test
-  void addUserToGroupTest() {
-    UserData contact = app.db().users().iterator().next();
-    GroupData groupToAdd = prepareGroupsBeforeOperation(contact);
+  void addUserToGroup() {
+    Map<UserData, GroupData> groupToAddAndContact = getAloneUserAndGroupForIt(app.db().users(), app.db().groups());
+    GroupData groupToAdd = null;
+    UserData contact = null;
+    for (Map.Entry<UserData, GroupData> map : groupToAddAndContact.entrySet()) {
+      contact = map.getKey();
+      groupToAdd = map.getValue();
+    }
     app.contact().addToGroup(contact, groupToAdd);
     Groups groupsAfterOperation = getGroupsAfterOperation(contact);
     assertThat(groupsAfterOperation.size(), equalTo(contact.getGroups().size() + 1));
@@ -67,5 +81,26 @@ public class AddUserToGroup extends TestBase {
       groupToAdd = allGroups.iterator().next();
     }
     return groupToAdd;
+  }
+
+  public Map<UserData, GroupData> getAloneUserAndGroupForIt(Users contacts, Groups groups) {
+    Map<UserData, GroupData> contactDataAndGroupData = new HashMap<>();
+    for (UserData user : contacts) {
+      Groups groupUser = user.getGroups();
+      for (GroupData group : groups) {
+        if (!groupUser.contains(group)) {
+          contactDataAndGroupData.put(user, group);
+          return contactDataAndGroupData;
+        }
+      }
+    }
+    if (contactDataAndGroupData.isEmpty()) {
+      app.group().groupPage();
+      GroupData groupToAdd = new GroupData().withName("test_new").withHeader("test_2").withFooter("test_3");
+      app.group().create(groupToAdd);
+      UserData contact = contacts.iterator().next();
+      contactDataAndGroupData.put(contact, groupToAdd);
+    }
+    return contactDataAndGroupData;
   }
 }
