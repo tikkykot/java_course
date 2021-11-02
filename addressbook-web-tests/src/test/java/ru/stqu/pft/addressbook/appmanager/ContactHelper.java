@@ -150,25 +150,39 @@ public class ContactHelper extends BaseHelper {
 
   }
 
+  public void selectGroupById(GroupData group) {
+    new Select(wd.findElement(By.name("to_group"))).selectByValue(String.valueOf(group.getId()));
+    click(By.name("add"));
+  }
+
   public void addToGroup(UserData contact, GroupData group) {
     returnToHomePage1();
-    selectGroupByname(group.getName());
+    selectGroupById(group);
     selectUserById(contact.getId());
     click(By.name("add"));
   }
 
-  public void removeFromGroup(UserData user, GroupData groupContact) {
-    groupSearch(groupContact.getName());
-    selectUserById(user.getId());
-    removeGroup();
-  }
 
   public void removeGroup() {
     click(By.name("remove"));
   }
+
   public void groupSearch(String nameGroup) {
     new Select(wd.findElement(By.name("group"))).selectByVisibleText(nameGroup);
   }
 
+  public void selectedUsersInGroups(GroupData group) {
+    new Select(wd.findElement(By.name("group"))).selectByValue(String.valueOf(group.getId()));
+  }
 
+  public void deleteFromGroup(UserData user) {
+    selectUserById(user.getId());
+    removeGroup();
+    returnToHomePage1();
+    selectAllUsers();
+  }
+
+  private void selectAllUsers() {
+    new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
+  }
 }

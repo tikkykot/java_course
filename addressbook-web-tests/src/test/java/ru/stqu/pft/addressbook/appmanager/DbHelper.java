@@ -41,4 +41,13 @@ public class DbHelper {
     session.close();
     return new Users(result);
   }
+
+  public UserData userById(int id){
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    List<UserData> result = session.createQuery( String.format("from UserData where id = %s", id)).list();
+    session.getTransaction().commit();
+    session.close();
+    return new Users(result).iterator().next();
+  }
 }
