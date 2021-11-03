@@ -152,7 +152,7 @@ public class ContactHelper extends BaseHelper {
 
   public void selectGroupById(GroupData group) {
     new Select(wd.findElement(By.name("to_group"))).selectByValue(String.valueOf(group.getId()));
-    click(By.name("add"));
+    //click(By.name("add"));
   }
 
   public void addToGroup(UserData contact, GroupData group) {
