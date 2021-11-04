@@ -1,6 +1,7 @@
 package ru.stqu.pft.addressbook.tests;
 
 
+import org.testng.AssertJUnit;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqu.pft.addressbook.model.UserData;
@@ -14,6 +15,7 @@ import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
+import static org.testng.AssertJUnit.assertTrue;
 
 public class AddUserToGroup extends TestBase {
 
@@ -21,18 +23,13 @@ public class AddUserToGroup extends TestBase {
   public void ensurePreconditions() {
     if (app.db().users().size() == 0) {
       app.contact().create(new UserData()
-              .withFirstname("Dmitry").withLastname("Zagumenny").withAddress("Saint_Petersburg").withPhone_home("+7123456789").withEmail("qa@java.com"));//.withGroup("test1"));
+              .withFirstname("Dmitry").withLastname("Zagumenny").withAddress("Saint_Petersburg").withPhone_home("+7123456789").withEmail("qa@java.com"));
     }
     app.db().groups();
     if (app.db().groups().size() == 0) {
       app.group().create(new GroupData().withName("test1"));
     }
   }
-
-  //@Test
-  //void addUserToGroupTest() {
-   // UserData contact = app.db().users().iterator().next();
-   // GroupData groupToAdd = prepareGroupsBeforeOperation(contact);
 
   @Test
   void addUserToGroup() {
@@ -43,6 +40,7 @@ public class AddUserToGroup extends TestBase {
       contact = map.getKey();
       groupToAdd = map.getValue();
     }
+
     app.contact().addToGroup(contact, groupToAdd);
     Groups groupsAfterOperation = getGroupsAfterOperation(contact);
     assertThat(groupsAfterOperation.size(), equalTo(contact.getGroups().size() + 1));
@@ -98,6 +96,9 @@ public class AddUserToGroup extends TestBase {
       app.group().groupPage();
       GroupData groupToAdd = new GroupData().withName("test_new").withHeader("test_2").withFooter("test_3");
       app.group().create(groupToAdd);
+      Groups after = app.db().groups();
+      GroupData a = groupToAdd.withId(after.stream().mapToInt((g) ->g.getId()).max().getAsInt());
+      groupToAdd = a;
       UserData contact = contacts.iterator().next();
       contactDataAndGroupData.put(contact, groupToAdd);
     }

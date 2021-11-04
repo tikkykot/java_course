@@ -55,14 +55,6 @@ public class ContactHelper extends BaseHelper {
     click(By.linkText("home"));
   }
 
- // public void initUserModification(int index) {
- //   wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
- // }
-
- // public void initUserModification(int id) {
- //   wd.findElement(By.xpath("//edit.php?id=" + id + "']")).click();
- // }
-
  public void initUserModificationById(int id) {
    wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
 }
@@ -145,14 +137,9 @@ public class ContactHelper extends BaseHelper {
             withAddress(address).withEmail(email).withEmail2(email2).withEmail3(email3);
   }
 
-  public void selectGroupByname(String name) {
-    new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(name);
-
-  }
 
   public void selectGroupById(GroupData group) {
     new Select(wd.findElement(By.name("to_group"))).selectByValue(String.valueOf(group.getId()));
-    //click(By.name("add"));
   }
 
   public void addToGroup(UserData contact, GroupData group) {
@@ -160,6 +147,7 @@ public class ContactHelper extends BaseHelper {
     selectGroupById(group);
     selectUserById(contact.getId());
     click(By.name("add"));
+    returnToHomePage1();
   }
 
 
