@@ -27,6 +27,7 @@ public class AddUserToGroup extends TestBase {
     }
     app.db().groups();
     if (app.db().groups().size() == 0) {
+      app.goTo().groupPage();
       app.group().create(new GroupData().withName("test1"));
     }
   }
@@ -40,7 +41,6 @@ public class AddUserToGroup extends TestBase {
       contact = map.getKey();
       groupToAdd = map.getValue();
     }
-
     app.contact().addToGroup(contact, groupToAdd);
     Groups groupsAfterOperation = getGroupsAfterOperation(contact);
     assertThat(groupsAfterOperation.size(), equalTo(contact.getGroups().size() + 1));
@@ -85,20 +85,23 @@ public class AddUserToGroup extends TestBase {
     Map<UserData, GroupData> contactDataAndGroupData = new HashMap<>();
     for (UserData user : contacts) {
       Groups groupUser = user.getGroups();
-      for (GroupData group : groups) {
-        if (!groupUser.contains(group)) {
-          contactDataAndGroupData.put(user, group);
-          return contactDataAndGroupData;
-        }
-      }
+       if (groups.size() != user.getGroups().size()) {
+
+         for (GroupData group : groups) {
+           if (!groupUser.contains(group)) {
+             contactDataAndGroupData.put(user, group);
+             return contactDataAndGroupData;
+           }
+         }
+       }
     }
     if (contactDataAndGroupData.isEmpty()) {
       app.group().groupPage();
       GroupData groupToAdd = new GroupData().withName("test_new").withHeader("test_2").withFooter("test_3");
       app.group().create(groupToAdd);
       Groups after = app.db().groups();
-      GroupData a = groupToAdd.withId(after.stream().mapToInt((g) ->g.getId()).max().getAsInt());
-      groupToAdd = a;
+      GroupData gr = groupToAdd.withId(after.stream().mapToInt((g) ->g.getId()).max().getAsInt());
+      groupToAdd = gr;
       UserData contact = contacts.iterator().next();
       contactDataAndGroupData.put(contact, groupToAdd);
     }

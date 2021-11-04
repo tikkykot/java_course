@@ -5,11 +5,15 @@ import org.testng.annotations.Test;
 import ru.stqu.pft.addressbook.model.GroupData;
 import ru.stqu.pft.addressbook.model.Groups;
 import ru.stqu.pft.addressbook.model.UserData;
+import ru.stqu.pft.addressbook.model.Users;
 
 import java.util.Set;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertTrue;
+
 
 public class RemoveUserFromGroup extends TestBase {
 
@@ -18,26 +22,22 @@ public class RemoveUserFromGroup extends TestBase {
 
     GroupData newGroup = new GroupData();
     UserData newUser = new UserData();
+
     if (app.db().groups().size() == 0) {
       newGroup = new GroupData().withName("test1");
       app.goTo().groupPage();
+      Groups before = app.db().groups();
       app.group().create(newGroup);
-      assertTrue(app.db().groups().contains(newGroup.withId
-              (app.db().groups().stream().mapToInt((g) -> g.getId()).max().getAsInt())));
-    } else {
-      newGroup = app.db().groups().iterator().next();
+      assertThat(app.group().count(), equalTo(before.size() + 1));
     }
 
     if (app.db().users().size() == 0){
       newUser = new UserData().
       withFirstname("Dmitry").withLastname("Zagumenny").withAddress("Saint_Petersburg").withPhone_home("+7123456789").withEmail("qa@java.com");
       app.returnToHomePage();
+      Users before = app.db().users();
       app.contact().create(newUser);
-      assertTrue(app.db().users().contains(newUser.withId
-              (app.db().users().stream().mapToInt((c) -> c.getId()).max().getAsInt())));
-      app.contact().addToGroup(newUser, newGroup);
-      Set<GroupData> usersGroupsAfter = app.db().userById(newUser.getId()).getGroups();
-      assertTrue(usersGroupsAfter.contains(newGroup));
+      assertThat(app.contact().count(), equalTo(before.size() + 1));
     }
   }
 
